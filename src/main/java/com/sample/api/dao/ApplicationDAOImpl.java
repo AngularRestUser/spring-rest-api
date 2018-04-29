@@ -25,6 +25,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sample.api.controller.User;
 import com.sample.api.model.KeyValueBean;
 import com.sample.api.util.DBUtil;
 import com.sample.api.util.FormUtil;
@@ -46,6 +47,54 @@ public class ApplicationDAOImpl implements ApplicationDAO{
 	
 	@Autowired
 	FormUtil formUtil;
+
+	@Override
+	public void create(User user) {
+		// TODO Auto-generated method stub
+		jdbcTemplate.update(
+			    "INSERT INTO info (firstname,lastname,emailid) VALUES (?, ?,?)",
+			    user.getFirstName(),user.getLastName(),user.getEmail()
+			);
+		
+	}
+
+	@Override
+	public User getUser(Integer id) {
+		// TODO Auto-generated method stub
+		String stmt="select * from info where id=?";
+		User user=jdbcTemplate.queryForObject(stmt, new Object[] {id}, new UserMapper());
+		return user;
+	}
+
+	@Override
+	public List<User> listUsers() {
+		
+		List<User> users = new ArrayList<User>();
+		// TODO Auto-generated method stub
+		
+		String stmt = "select * from info";
+		users = jdbcTemplate.query(stmt, new UserMapper());
+		return users;
+	}
+
+	@Override
+	public void delete(Integer id) {
+		// TODO Auto-generated method stub
+		String stmt=" delete from info where id=?";
+		jdbcTemplate.update(stmt,id);
+	}
+
+	@Override
+	public void update(User user) {
+		// TODO Auto-generated method stub
+		String stmt=" update info set firstname=?,lastname=?,emailid=? where id=?";
+		jdbcTemplate.update(stmt,user.getFirstName(),user.getLastName(),user.getEmail(),(int)(long)user.getId());
+		
+	}
+	
+	
+	
+	
 	
 }
 	

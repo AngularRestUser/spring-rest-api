@@ -38,7 +38,7 @@ public class JdbcConfiguration {
     }
 
     @Bean
-    public ApplicationDAO getApplicationDAO() throws NamingException{
+    public ApplicationDAO applicationDAO() throws NamingException{
         return new ApplicationDAOImpl();
     }
 
