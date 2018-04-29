@@ -8,6 +8,6 @@ import org.springframework.web.client.RestTemplate;
 
 public class ApplicationTestClient {
 
-    public static final String REST_SERVICE_URI = "http://localhost:8000/rest-appl-api";
+    public static final String REST_SERVICE_URI = "http://localhost:8005/rest-appl-api";
 
 }
